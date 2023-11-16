@@ -1,0 +1,55 @@
+package selenium;
+
+import java.io.File;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Downloadafile {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://letcode.in/file");
+		
+		WebElement downloadlink = driver.findElement(By.linkText("Download Excel"));
+		
+		downloadlink.click();
+		
+		Thread.sleep(3000);
+		
+		// get the location where the downloaded file present
+		
+		File filelocation = new File("C:\\Users\\Hp\\Downloads");
+		
+		// get the list of files present in the downloads
+		
+		File[] totalfiles = filelocation.listFiles();
+		
+		//check each file name which matches the download file name & sysout
+		
+		for (File file : totalfiles) 
+		{
+			
+			if(file.getName().equals("sample.xlsx"))
+			{
+				System.out.println("file is present in the downloads");
+				
+				break;
+			}
+		}
+		
+	}
+
+}

@@ -1,0 +1,41 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Handlingtooltip {
+
+	public static void main(String[] args)  {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://jqueryui.com/tooltip/");
+		
+		//check whether it is inside frame
+		
+		driver.switchTo().frame(0);
+		
+		// find the element
+		
+		WebElement yourage = driver.findElement(By.xpath("//*[@id=\'age\']"));
+		
+		//get the attribute of the title
+		
+		String tooltiptext = yourage.getAttribute("title");
+		
+		System.out.println(tooltiptext);
+  
+
+	}
+
+}

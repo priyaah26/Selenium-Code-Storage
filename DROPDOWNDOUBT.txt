@@ -1,0 +1,100 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
+
+public class dropdowndoubt {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions options = new ChromeOptions();
+		
+		options.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(options);
+		
+		driver.get("https://letcode.in/dropdowns");
+		
+		// to select by visibletext,index, value
+		
+		WebElement fruit = driver.findElement(By.id("fruits"));
+		
+		Select myfruit = new Select(fruit);
+		
+		myfruit.selectByVisibleText("Apple");
+		
+		myfruit.selectByValue("2");
+		
+		myfruit.selectByIndex(4);
+		
+		// to check whether it is multi-select or not
+		
+		WebElement hero = driver.findElement(By.id("superheros"));
+		
+		Select myhero = new Select(hero);
+		
+		Boolean ismul1 = myhero.isMultiple();
+		
+		System.out.println("is multiple:" +" " + ismul1);
+		
+		// to select multiple option
+		
+		myhero.selectByValue("ta");
+		
+		myhero.selectByVisibleText("Black Panther");
+		
+		// to print the selected option
+		
+		List<WebElement> favhero = myhero.getAllSelectedOptions();
+		
+		for (WebElement selectedhero : favhero)
+		{
+			System.out.println("list of selected option:" + " " + selectedhero.getText());
+		}
+		
+		// to get the first selected option
+		
+		WebElement country = driver.findElement(By.id("country"));
+		
+		Select mycountry = new Select(country);
+		
+		mycountry.selectByValue("India");
+		
+		WebElement selectedcountry = mycountry.getFirstSelectedOption();
+		
+		System.out.println(selectedcountry.getText());
+		
+		// to get the list of option present in the drop down
+		
+		WebElement pgmlang = driver.findElement(By.id("lang"));
+		
+		Select lastpgm = new Select(pgmlang);
+		
+		lastpgm.selectByValue("sharp");
+		
+		List<WebElement> listofpgm = lastpgm.getOptions();
+		
+		listofpgm.forEach(pgm -> System.out.println("list of all programming language in dropdown: " + " " + pgm.getText()));
+		
+		// in select tab if id name not present bootstrap drop down xpath selection
+		
+		WebElement uitool = driver.findElement(By.xpath("//*[@id=\'j_idt87\']/div/div[1]/div[1]/div/div/select"));
+		
+		Select tool = new Select(uitool);
+		
+		List<WebElement> getalltooloption = tool.getOptions();
+		
+		getalltooloption.forEach(tools -> System.out.println("list of all tool:" + tools.getText())); 
+			
+	}
+
+}

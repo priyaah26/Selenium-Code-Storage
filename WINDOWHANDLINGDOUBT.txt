@@ -1,0 +1,54 @@
+package selenium;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Windowhanlingdoubt {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://letcode.in/windows");
+		
+		driver.manage().window().maximize();
+		
+		// to store the parent window
+		
+		String parentwindow = driver.getWindowHandle();
+
+		// to get child window closed but not the parent window
+		
+		WebElement multiplewindow = driver.findElement(By.id("multi"));
+				
+		multiplewindow.click();	
+				
+		Set<String> getallwindows = driver.getWindowHandles();
+				
+		for (String allwindows : getallwindows)
+		{
+					
+		if(!allwindows.equals(parentwindow))
+		{
+						
+		driver.switchTo().window(allwindows);
+		driver.close();
+		
+		}
+		
+		} 
+	}
+
+}

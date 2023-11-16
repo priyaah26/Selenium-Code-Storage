@@ -1,0 +1,63 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+
+public class Handlingselectable {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://jqueryui.com/selectable/");
+		
+		// check for frames
+		
+		driver.switchTo().frame(0);
+		
+		// find element in ol tag using xpath to get elements in the list give "/li" in xpath
+		
+		List<WebElement> selectable = driver.findElements(By.xpath("//*[@id=\'selectable\']/li"));
+		
+		//to get the size of the list
+		
+		int size = selectable.size();
+		
+		System.out.println(size);
+		
+		// using control and clock, keydown to select from top to down
+		
+		/* Actions actions = new Actions(driver);
+		
+		actions.keyDown(Keys.CONTROL).click(selectable.get(0)).click(selectable.get(1)).click(selectable.get(4));
+		
+		actions.perform(); */
+		
+		//using click and hold only for continues selection
+		
+		Actions actions = new Actions(driver);
+		
+		actions.clickAndHold(selectable.get(0));
+		
+		actions.clickAndHold(selectable.get(1));
+		
+		actions.clickAndHold(selectable.get(2));
+		
+		actions.perform();
+		
+	}
+
+}

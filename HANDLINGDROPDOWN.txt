@@ -1,0 +1,89 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
+
+public class Handlingdropdown {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions options = new ChromeOptions();
+		
+		options.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(options);
+		
+		driver.get("https://letcode.in/dropdowns");
+		
+		driver.manage().window().maximize();
+		
+		WebElement fruit = driver.findElement(By.id("fruits"));
+		
+		Select myfruit = new Select(fruit);
+		
+		List<WebElement> getalloption = myfruit.getOptions();
+		
+		getalloption.forEach(i -> System.out.println(i.getText()));
+		
+		// myfruit.selectByVisibleText("Mango");
+		
+		myfruit.selectByIndex(2);
+		
+		Thread.sleep(3000);
+		
+		WebElement country = driver.findElement(By.id("country"));
+		
+		Select mycountry = new Select(country);
+		
+		mycountry.selectByValue("India");
+		
+		WebElement selectedcountry = mycountry.getFirstSelectedOption();
+		
+		System.out.println(selectedcountry.getText());
+		
+		Thread.sleep(3000);
+		
+		WebElement hero = driver.findElement(By.id("superheros"));
+		
+		Select myhero = new Select(hero);
+		
+		Boolean ismul = myhero.isMultiple();
+		
+		System.out.println("is multiple" + ismul);
+		
+		myhero.selectByIndex(1);
+		
+		myhero.selectByValue("bt");
+		
+		Thread.sleep(3000);
+		
+		List<WebElement> allheros = myhero.getAllSelectedOptions();
+		
+		for (WebElement webelement : allheros )
+			
+		{
+			
+		System.out.println("selected text:" + webelement.getText());
+		
+		}
+		
+		driver.get("https://leafground.com/select.xhtml");
+		
+		
+		driver.findElement(By.xpath("//*[@id=\'j_idt87\']/div/div[1]/div[1]/div/div/select"));
+		
+		driver.findElement(By.xpath("//*[@id=\'j_idt87\']/div/div[1]/div[1]/div/div/select/option[2]")).click();
+		
+		
+	}
+
+}

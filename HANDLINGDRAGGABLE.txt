@@ -1,0 +1,40 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+
+public class Handlingdraggable {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		
+		driver.get("https://jqueryui.com/draggable/");
+		
+		driver.switchTo().frame(0);
+		
+		WebElement ele = driver.findElement(By.id("draggable"));
+		
+		Actions builder = new Actions(driver);
+		
+		int x = ele.getLocation().getX();
+		
+		int y = ele.getLocation().getY();
+		
+		builder.dragAndDropBy(ele, x+50, y+50).perform();
+	}
+	
+
+}

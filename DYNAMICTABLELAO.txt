@@ -1,0 +1,77 @@
+package selenium;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Dynamictablelao {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+
+		driver.get("https://letcode.in/table");
+		
+		// to get the price of the apple
+		
+		// 1. find the table since more table are present in a page
+		
+		WebElement table = driver.findElement(By.id("shopping"));
+		
+		//2. going to find the element using xpath (indirect way )
+		
+		WebElement getprice = table.findElement(By.xpath("//*[@id=\"shopping\"]//tbody//td['Apple']//following::td[3]"));
+		
+		String text = getprice.getText(); 
+		
+		System.out.println("price of the apple :" + " " + text);
+		
+		// to get the least price
+		
+		// 1. find the list of elements using xpath
+		
+		List<WebElement> price = table.findElements(By.xpath("//*[@id=\"shopping\"]/tbody//td[2]"));
+		
+		// 2.1 to compare all the price we need to store all the value that we get during each iteration
+		
+		List<Integer> pricelist = new ArrayList<Integer>();
+		
+		// 2. to take each element in the price column
+		
+		for (WebElement webElement : price) 
+		
+		{
+			
+			String individualprice = webElement.getText();
+			
+			//to convert the string to an integer we have Integer.parseInt function
+			
+			pricelist.add(Integer.parseInt(individualprice));
+			
+		}
+		
+		System.out.println("final price list :"  + " " + pricelist);
+		
+		// to get the minimum price
+		
+		int minimumprice = Collections.min(pricelist);
+		
+		System.out.println("the minimum price in the list :" + " " + minimumprice);
+		
+	}
+
+}

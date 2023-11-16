@@ -1,0 +1,97 @@
+package selenium;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Windowhandling {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://letcode.in/windows");
+		
+		driver.manage().window().maximize();
+		
+		// to store the parent window
+		
+		String parentwindow = driver.getWindowHandle();
+		
+		// click home page button in the parent window 
+		
+		WebElement childhomepage = driver.findElement(By.id("home"));
+		
+		childhomepage.click();
+		
+		/* from parent window move to child window, perform operation in child window and close the child window */
+		
+		// 1. to store all the window (parent window and child window)
+		
+		Set<String> allwindow = driver.getWindowHandles();
+		
+		// 2. move to child window
+		
+		for (String newwindow : allwindow) 
+		{
+			driver.switchTo().window(newwindow);
+		}
+		
+		// 3. perform operation in child window and close it
+		
+		WebElement edit = driver.findElement(By.linkText("Edit"));
+		
+		edit.click();
+		
+		Thread.sleep(3000);
+		
+		driver.close();	
+		
+		// to get back to the parent window
+		
+		driver.switchTo().window(parentwindow);
+		
+		// to get the number of opened windows
+		
+		WebElement multiwindow = driver.findElement(By.id("multi"));
+		
+		multiwindow.click();
+		
+		int numberofwindowopened = driver.getWindowHandles().size();
+		
+		System.out.println("no of windows opened:" + "  " + numberofwindowopened); 	
+		
+		// to get child window closed but not the parent window
+		
+		WebElement multiplewindow = driver.findElement(By.id("multi"));
+						
+		multiplewindow.click();	
+						
+		Set<String> getallwindows = driver.getWindowHandles();
+						
+		for (String allwindows : getallwindows)
+		{
+							
+		if(!allwindows.equals(parentwindow))
+		{
+								
+		driver.switchTo().window(allwindows);
+		driver.close();
+				
+		}
+		
+		}
+		driver.quit();
+	}
+}

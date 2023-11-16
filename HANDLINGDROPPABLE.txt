@@ -1,0 +1,62 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+
+public class Handlingdroppable {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		// its a frame source
+		
+		driver.get("https://jqueryui.com/droppable/");
+		
+		driver.manage().window().maximize();
+		
+		// switching to frame from driver
+		
+		driver.switchTo().frame(0);
+		
+		//finding source and target
+		
+		WebElement source = driver.findElement(By.id("draggable"));
+		
+		WebElement target = driver.findElement(By.id("droppable"));
+		
+		//action class to perform drag and drop (overloading concept)
+		
+		Actions builder = new Actions(driver);
+		
+		builder.dragAndDrop(source, target).perform();	
+		
+		
+		// check whether it is frame source or not (here its not frame source)
+		
+		/* driver.get("https://letcode.in/dropable");
+		
+		driver.manage().window().maximize();
+		
+		WebElement source1 = driver.findElement(By.id("draggable"));
+		
+		WebElement target1 = driver.findElement(By.id("droppable"));
+		
+		Actions builder = new Actions(driver);
+		
+		builder.dragAndDrop(source1, target1).perform(); */		
+
+	}
+
+}

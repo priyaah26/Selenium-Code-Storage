@@ -1,0 +1,46 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Images {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://www.geeksforgeeks.org/fundamentals-of-algorithms/?ref=shm");
+		
+		driver.manage().window().maximize();
+		
+		WebElement geekforgeeksimg = driver.findElement(By.xpath("/html/body/div[1]/a[2]/div/img"));
+		
+		geekforgeeksimg.click();
+		
+		driver.get("https://www.google.com/search?q=images+scenery&rlz=1C1GCEU_enIN975IN975&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiH9af8_P39AhUSXmwGHWk-AFwQ_AUoAXoECAEQAw");
+
+		WebElement brokenimg = driver.findElement(By.xpath("//*[@id=\'islrg\']/div[1]/div[69]/a[1]/div[1]/img"));
+		
+		if (brokenimg.getAttribute("naturalWidth").equals("0"))
+		{
+			System.out.println("the image is broken image");
+			
+		}
+		
+		else
+		{
+			System.out.println("not a broken image");
+		}
+	}
+
+}

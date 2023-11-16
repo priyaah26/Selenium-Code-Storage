@@ -1,0 +1,87 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Hyperlinkhandling {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		// if we want to back refresh or forward  page use navigate instead of driver get
+		
+		driver.navigate().to("https://www.leafground.com/link.xhtml");
+		
+		// click on the home page button and return to the same page
+		
+		WebElement homepagebutton = driver.findElement(By.linkText("Go to Dashboard"));
+
+		homepagebutton.click();
+		
+		driver.navigate().back();
+		
+		// find the url without clicking me (where we go)
+		
+		WebElement whereto = driver.findElement(By.linkText("Find the URL without clicking me."));
+		
+		// 1. to get the href attribute
+		
+		String wheretogourl = whereto.getAttribute("href");
+		
+		System.out.println("this link is going to :" + " " + wheretogourl );
+		
+		// to find whether the link is broken
+		
+		WebElement broken = driver.findElement(By.linkText("Broken?"));
+		
+		broken.click();
+		
+		// to get the title of the driver
+		
+		String title = driver.getTitle();
+		
+		if (title.contains("404"))
+		{
+			System.out.println(" it is a broken link");
+		}
+		
+		driver.navigate().back();
+		
+		// duplicate link how to avoid stale element reference exception
+		
+		// for same link use find the element again
+		
+		WebElement homepagebutton1 = driver.findElement(By.linkText("Go to Dashboard"));
+
+		homepagebutton1.click();
+		
+		driver.navigate().back();
+		
+		// to count the number of links in a web page
+		
+		// more than one element so findElements used
+		
+		//to get the number of links in a webpage use tag name <a> since its counts link
+		
+		List<WebElement> linkcount = driver.findElements(By.tagName("a"));
+		
+		int size = linkcount.size();
+		
+		System.out.println("no of links in this page :" + " " + size);
+			
+	}
+
+}

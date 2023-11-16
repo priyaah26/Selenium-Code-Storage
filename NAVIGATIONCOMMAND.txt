@@ -1,0 +1,63 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class navigationcommand {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions options = new ChromeOptions();
+		
+		options.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(options);
+		
+		driver.get("https://letcode.in/buttons");
+		
+		String url = driver.getCurrentUrl();
+		
+		System.out.println("button page url:" + " " + url);
+		
+		driver.findElement(By.id("home")).click();
+		
+		Thread.sleep(3000);
+		
+		String homeurl = driver.getCurrentUrl();
+		
+		System.out.println("home page url:" + " " + homeurl);
+		
+		Thread.sleep(3000);
+		
+		driver.navigate().back();
+		
+		System.out.println("return to button page:" + " " + driver.getCurrentUrl());
+		
+		Thread.sleep(3000);
+		
+		driver.navigate().refresh();
+		
+		Thread.sleep(3000);
+		
+		driver.navigate().to("https://letcode.in/signup");
+		
+		Thread.sleep(3000);
+		
+		driver.navigate().back();
+		
+		System.out.println("return to button page:" + " " + driver.getCurrentUrl());
+		
+		driver.navigate().forward();
+		
+		System.out.println("forward page url:" + " " + driver.getCurrentUrl());
+		
+		driver.quit();
+		
+	}
+
+}

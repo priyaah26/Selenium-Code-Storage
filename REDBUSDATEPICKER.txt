@@ -1,0 +1,46 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Redbusdatepicker {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+
+		driver.get("https://www.redbus.in/");
+		
+		WebElement datebutton = driver.findElement(By.xpath("//label[contains(text(),'Date')]"));
+		
+		datebutton.click();
+		
+		WebElement nextbutton = driver.findElement(By.xpath("//button[contains(text(),'>')]"));
+		
+		nextbutton.click();
+		
+		WebElement nextbutton1 = driver.findElement(By.xpath("//button[contains(text(),'>')]"));
+		
+		nextbutton1.click();
+		
+		WebElement nextbutton2 = driver.findElement(By.xpath("//button[contains(text(),'>')]"));
+		
+		nextbutton2.click();
+		
+		WebElement date = driver.findElement(By.xpath("//td[contains(text(),'28')]"));
+		
+		date.click();
+
+	}
+
+}

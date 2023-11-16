@@ -1,0 +1,85 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Handlingframes {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+		
+		driver.get("https://leafground.com/frame.xhtml;jsessionid=node0djfy9h58xzl612rjylc45b21t180730.node0");
+		
+		// to switch to frames html from driver (native) html
+		
+		driver.switchTo().frame(0);
+		
+		// click me ( i am inside frame)
+		
+		WebElement clickme = driver.findElement(By.id("Click"));
+		
+		clickme.click();
+		
+		// to display the text once the frame is clicked
+		
+		String text = driver.findElement(By.id("Click")).getText();
+		
+		System.out.println(text);
+		
+		// click me (i am inside nested frame)
+				
+		// 1. switch to native 
+		
+		driver.switchTo().defaultContent();
+		
+		// 2. check is there any frame present above and give the position
+	
+		driver.switchTo().frame(2);
+		
+		// 3. find the right frame
+		
+		driver.switchTo().frame("frame2");
+		
+		// 4. to click
+		
+		WebElement clickmenested = driver.findElement(By.xpath("//*[@id=\'Click\']"));
+		
+		clickmenested.click();
+		
+		// 5. to display the text once the frame is clicked
+		
+		String text1 = driver.findElement(By.xpath("//*[@id=\'Click\']")).getText();
+				
+		System.out.println(text1);
+		
+		// to count the number of frames
+		
+		// 1. switch to native 
+		
+		driver.switchTo().defaultContent();
+		
+		// 2. to find the number of iframes
+		
+		List<WebElement> countframes = driver.findElements(By.tagName("iframe"));
+		
+		int numberofframes = countframes.size();
+		
+		System.out.println("no of iframes:" + " " + numberofframes );
+
+		
+	}
+
+}

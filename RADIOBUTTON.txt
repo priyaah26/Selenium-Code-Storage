@@ -1,0 +1,75 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Radiobutton {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions options = new ChromeOptions();
+		
+		options.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(options);
+		
+		driver.get("https://letcode.in/radio");
+		
+		driver.manage().window().maximize();
+		
+		// to select favourite browser
+		
+		WebElement favbrowser = driver.findElement(By.xpath("//*[@id=\'yes\']"));
+		
+		favbrowser.click();
+		
+		// find the default selected browser
+		
+		WebElement unselected =  driver.findElement(By.xpath("//*[@id=\'foo\']"));
+		
+		WebElement selected =  driver.findElement(By.xpath("//*[@id=\'notfoo\']"));
+		
+		if (unselected.isSelected())
+		{
+			
+		System.out.println("foo is default selected browser" + " " + unselected.isSelected());	
+		}
+		
+		else 
+		{
+		
+			System.out.println("bar is default selected browser" + " " + selected.isSelected());
+		}
+		
+		// to uncheck the selected checkbox
+		
+		WebElement selectedcheckbox =  driver.findElement(By.xpath("/html/body/app-root/app-radio-check/section[1]/div/div/div[1]/div/div/div[6]/label[2]/input"));
+		
+		if (selectedcheckbox.isSelected()) {
+			
+			selectedcheckbox.click();
+		}
+		
+		// to confirm the last field is disabled
+		
+		boolean going = driver.findElement(By.id("going")).isEnabled();
+		
+		System.out.println(going);
+
+		boolean notgoing = driver.findElement(By.id("notG")).isEnabled();
+		
+		System.out.println(notgoing);
+
+		boolean maybe = driver.findElement(By.xpath("//*[@id=\'maybe\']")).isEnabled();
+		
+		System.out.println(maybe);
+			
+	}
+
+}

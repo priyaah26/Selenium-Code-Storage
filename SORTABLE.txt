@@ -1,0 +1,74 @@
+package selenium;
+
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+
+public class Sortable {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+
+		driver.get("https://jqueryui.com/sortable/");
+		
+		driver.manage().window().maximize();
+		
+		driver.switchTo().frame(0);
+		
+		List<WebElement> ele = driver.findElements(By.xpath("//*[@id=\'sortable\']/li"));
+
+		/* WebElement fromelement = ele.get(6);
+		
+		WebElement toelement = ele.get(0);
+
+		Actions actions = new Actions(driver);
+		
+		actions.clickAndHold(fromelement);
+		
+		actions.moveToElement(toelement);
+		
+		actions.release(toelement);
+		
+		actions.perform(); */
+		
+		int size = ele.size();
+		
+		System.out.println(size);
+		
+		for (WebElement webElement : ele) 
+		{
+			WebElement toelement = ele.get(0);
+			
+			if(webElement.getText().equals("Item 7"))
+			{
+				Actions actions = new Actions(driver);
+				
+				actions.clickAndHold(webElement);
+				
+				actions.moveToElement(toelement);
+				
+				actions.release(toelement);
+				
+				actions.perform();
+			}
+		}
+		
+		
+		
+	}
+
+}

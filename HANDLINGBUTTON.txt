@@ -1,0 +1,68 @@
+package selenium;
+
+
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Handlingbutton {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions options = new ChromeOptions();
+		
+		options.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(options);
+		
+		driver.get("https://letcode.in/buttons");
+		
+		/* WebElement ele = driver.findElement(By.id("position"));
+		
+		Point point = ele.getLocation();
+		
+		int x = point.getX();
+		
+		int y = point.getY();
+		
+		System.out.println("x =>" + x + " y => " + y); */
+		
+		Point point = driver.findElement(By.id("position")).getLocation();
+		
+		int x = point.getX();
+		
+		int y = point.getY();
+		
+		System.out.println("x =>" + x + " y => " + y); 
+		
+		String btncolour = driver.findElement(By.id("color")).getCssValue("background-color");
+		
+		System.out.println(btncolour);
+		
+		Rectangle rect = driver.findElement(By.id("property")).getRect();
+		
+		System.out.println("height =" + rect.getHeight());
+		
+		System.out.println("width =" + rect.getWidth());
+		
+		System.out.println("point =" + rect.getPoint());
+		
+		System.out.println("dimension =" + rect.getDimension());
+		
+		Boolean btn = driver.findElement(By.id("isDisabled")).isEnabled();
+		
+		System.out.println(btn);
+		
+		driver.quit();
+		
+		
+
+	}
+
+}

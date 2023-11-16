@@ -1,0 +1,138 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class Dynamictablehandling {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Hp\\chromedriver_win32\\chromedriver.exe");
+		
+		ChromeOptions option = new ChromeOptions();
+		
+		option.addArguments("--remote-allow-origins=*");
+		
+		WebDriver driver = new ChromeDriver(option);
+
+		driver.get("https://letcode.in/table");
+		
+		//to get the number of columns in a table
+		
+		// 1. check how many table present if there are more table present in a page using ctrl+f;
+		
+		WebElement table = driver.findElement(By.id("simpletable"));
+		
+		// 2. no number of columns so use find elements and import list
+		
+		// 3. use "th" tag to find the number of columns
+		
+		List <WebElement> columncount = table.findElements(By.tagName("th"));
+		
+		int noofcolumns = columncount.size();
+		
+		System.out.println("number of columns in a table are : " + " " + noofcolumns);
+		
+		// to get the number of rows in a table
+		
+		// to get rows use "tr" tag
+		
+		List<WebElement> rowcount = table.findElements(By.tagName("tr"));
+		
+		int noofrows = rowcount.size();
+		
+		System.out.println("numbersof rows in a table are :" + " " + noofrows);
+		
+		// to print the header title
+		
+		List<WebElement> headertitle =table.findElements(By.tagName("th"));
+		
+		// use for each loop 
+		
+		for (WebElement headername : headertitle)
+		{
+			
+			String text = headername.getText();
+			
+			System.out.println("header titles :" + " " + text);
+		}
+		
+		// to get the first columns all rows except header
+		
+		//use csslocator name start from tbody
+		
+		List<WebElement> allrows = table.findElements(By.cssSelector("tbody tr"));
+		
+		// use for each loop to get the names in the first column
+		
+		// to access the cell in a table use "td" tag
+		
+		// first td position 0 
+		
+		// use gettext() to get the text from the table
+		
+		/* for (WebElement columnallrow : allrows) 
+		{
+			List<WebElement> column = columnallrow.findElements(By.tagName("td"));
+			
+			WebElement rowname = column.get(0);
+			
+			System.out.println(rowname.getText());
+		} */
+		
+		//  to click raj is present (tr = 2; td = 3, th = 3)
+		
+		// 1. finding row size to use in iteration
+		
+		int rowsize = allrows.size();
+		
+		System.out.println("rowsize is :" + " " + rowsize);
+		
+		for (int i = 0; i < rowsize; i++) 
+		
+		{
+			
+			// get all rows td cell in rows
+			
+			List<WebElement> rows = allrows.get(i).findElements(By.tagName("td"));
+			
+			// get first column where raj is present
+			
+			WebElement lastname = rows.get(1);
+			
+			// get all the text in the first column
+			
+			String text = lastname.getText();
+			
+			// sysout is not mandatory
+		
+			System.out.println("last name deatil :" + " " + text);
+			
+			// if statement to check the text matches with raj
+			
+			if(text.equals("Raj"))
+				
+			{
+				// under input tag select column 3 and click to mark raj as present
+				
+				WebElement input = rows.get(3).findElement(By.tagName("input"));
+				
+				input.click();
+				
+				break;
+				
+			}
+		}
+		
+		
+		
+	}
+
+}
+
